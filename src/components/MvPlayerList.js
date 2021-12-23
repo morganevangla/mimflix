@@ -19,16 +19,16 @@ class MvPlayerList extends Component {
             )
         })
     }
-
-    render() {
-        const position = '1';
-        const total = '10';
+   render() {
+ 
+        // const position = '1';
+        const total = this.props.movies.length;
         return (
             <div className='mvPlayerList'>
                 <div className='mvPlayerList--header'>
                     <h3>{this.props.selectedMovie.title}</h3>
                     <div className='mvPlayerList--badge'>
-                        { position / total }
+                        { this.props.selectedMovie.position } / {total}
                     </div>
                 </div>
                 <div className='mvPlayerList--list'>{this.renderList(this.props)}</div>
