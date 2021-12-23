@@ -79,10 +79,29 @@ class MoviePlayer extends Component {
                 videoUrl: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4"
             }
         })
+        const id = this.props.taskId;
+
+        if (id) {
+            const selectedMovie = this.getSelectedMovie(newMovies, id);
+            this.setState({
+                loading: false,
+                movies: [...newMovies],
+                selectedMovie: selectedMovie
+            })
+        } else {
+            const selectedMovie = newMovies[0]
+            this.setState({
+                loading: false,
+                movies: [...newMovies],
+                selectedMovie: selectedMovie
+            })
+            this.props.navigate.push(`/player/${selectedMovie.id}`);
+        }
     }
 
     getSelectedMovie = (movies, movieId) => {
-        console.log(movies, movieId)
+      const selectedMovie = _.find(movies, {id: parseInt(movieId, 10)});
+      return selectedMovie;
     }
 
     handleEnded = () => {
