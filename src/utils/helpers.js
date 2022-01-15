@@ -13,3 +13,16 @@ export const convertMoney = money => {
 
     return formatter.format(money);
 }
+
+export const getLocation = () => {
+    const { pathname, hash, search } = window.location;
+  
+    // We recreate our own object 
+    // because window.location is mutated
+    return {
+      pathname,
+      hash,
+      search,
+    };
+  }
+  
