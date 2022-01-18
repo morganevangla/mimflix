@@ -3,7 +3,7 @@ import axios from 'axios';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import './App.css';
-import { Home, NotFound, MoviePlayer, Login } from './routes';
+import { Home, NotFound, MoviePlayer, Login, Payment } from './routes';
 import { Header, Spinner, GetId } from './components';
 
 import { API_KEY, API_URL, IMAGE_BASE_URL, BACKDROP_SIZE } from './config';
@@ -129,6 +129,7 @@ class App extends Component {
                 {/* <Route path='/:id' exact element={<Details />} /> */}
                 <Route path='/player/:id' exact component={GetId} element={<GetId component={'MoviePlayer'} />} />
                 <Route path='/login' exact component={<Login />} element={<Login />} />
+                <Route path='/payment' exact component={<Payment />} element={<Payment />} />
                 <Route path='/:id' exact component={GetId} element={<GetId component={'Details'} />} />
           <Route path= '*' element= {<NotFound/>}/>
               </Routes>

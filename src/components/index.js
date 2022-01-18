@@ -22,3 +22,7 @@ export * from './GetId';
 export * from './VideoPlayer';
 export * from './MvPlayerList';
 export * from './MvPlayerListItem';
+
+// Paypal
+
+export * from './Paypal';
