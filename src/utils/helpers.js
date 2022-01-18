@@ -25,4 +25,6 @@ export const getLocation = () => {
       search,
     };
   }
+
+  export const NETFLIX_APP_LOGGEDIN = 'NETFLIX_APP_LOGGEDIN'
   
