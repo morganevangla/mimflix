@@ -3,12 +3,15 @@ import axios from 'axios';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import './App.css';
-import { Home, NotFound, MoviePlayer } from './routes';
+import { Home, NotFound, MoviePlayer, Login } from './routes';
 import { Header, Spinner, GetId } from './components';
 
-import { API_KEY, API_URL, IMAGE_BASE_URL, BACKDROP_SIZE } from './config'
+import { API_KEY, API_URL, IMAGE_BASE_URL, BACKDROP_SIZE } from './config';
+import { initFirebase } from './utils/firebase-config';
 import { Provider } from 'react-redux';
 import store from './store';
+// import 'bootstrap/dist/css/bootstrap.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 class App extends Component {
 
   state = {
@@ -20,25 +23,12 @@ class App extends Component {
     mDesc: '',
     activePage: 0,
     totalPages: 0,
-    searchText: '',
-    actors: [
-      {
-          name: 'Julien Kisoni'
-      },
-      {
-          name: 'Hypolite Kisoni'
-      },
-      {
-          name: 'Aristid Kisoni'
-      },
-      {
-          name: 'Jean-Jean Kisoni'
-      }
-  ]
+    searchText: ''
   }
 
   async componentDidMount() {
     try {
+      initFirebase();
       const { data: { results, page, total_pages } } = await this.loadMovies();
       this.setState({
         movies: results,
@@ -138,6 +128,7 @@ class App extends Component {
 
                 {/* <Route path='/:id' exact element={<Details />} /> */}
                 <Route path='/player/:id' exact component={GetId} element={<GetId component={'MoviePlayer'} />} />
+                <Route path='/login' exact component={<Login />} element={<Login />} />
                 <Route path='/:id' exact component={GetId} element={<GetId component={'Details'} />} />
           <Route path= '*' element= {<NotFound/>}/>
               </Routes>
