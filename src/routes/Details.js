@@ -5,7 +5,11 @@ import { ActorList, HeaderDetails, Spinner } from "../components";
 
 import axios from "axios";
 import { API_KEY, API_URL } from "../config";
+import { renderLogin } from "../utils/helpers";
 
+import { Navigate } from 'react-router';
+
+const flag = renderLogin();
 
 class Details extends Component {
 
@@ -13,14 +17,16 @@ class Details extends Component {
     state = {
         loading: true,
         actors: [],
-        mTitle: 'Batman',
-        mDesc: 'Voici la desc du film Batman',
-        imgSrc: './images/Fast_large.jpg',
-        runtime: '2h30',
-        revenue: '$12345678',
-        status: 'Released',
-        vote: ''
+        mTitle: '',
+        mDesc: '',
+        imgSrc: '',
+        runtime: '',
+        revenue: '',
+        status: '',
+        vote: '',
+        flag: flag
     }
+
     async componentDidMount() {
         try {
             const movieId = this.props.taskId;
@@ -63,22 +69,25 @@ class Details extends Component {
         return (
             <div className="app">
                 {loading ?
-                (
-                    <Spinner />
-                ): (
-                   <>
-                   <HeaderDetails
-                   mTitle={mTitle}
-                   mDesc={mDesc}
-                   imgSrc ={imgSrc}
-                   runtime={runtime}
-                   revenue={revenue}
-                   status={status}
-                   vote={vote}
-                   />
-                   <ActorList actors= {actors}/>
-                   </> 
-                )}
+                    (
+                        <Spinner />
+                    ) : (
+                        <>
+                            {!this.state.flag && (
+                                <Navigate to="/login" replace={true} />
+                            )}
+                            <HeaderDetails
+                                mTitle={mTitle}
+                                mDesc={mDesc}
+                                imgSrc={imgSrc}
+                                runtime={runtime}
+                                revenue={revenue}
+                                status={status}
+                                vote={vote}
+                            />
+                            <ActorList actors={actors} />
+                        </>
+                    )}
             </div>
         )
     }
