@@ -6,13 +6,12 @@ function GetId(props) {
 
     const { id } = useParams();
     let navigate = useNavigate();
-    console.log(id, props.component);
 
     return (
         <div>
             {
                 props.component === 'Details' ? (
-                    <Details taskId={id} />
+                    <Details taskId={id} navigate={navigate} />
                 ) : 
                 props.component === 'MoviePlayer' ? (
                     <MoviePlayer taskId={id} navigate={navigate} />

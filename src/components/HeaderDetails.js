@@ -45,7 +45,7 @@ class HeaderDetails extends Component {
                     <p className='headerDetails--container_desc'>{mDesc}</p>
                     <div className='headerDetails--info'>
                         <Container
-                            iconName="clock"
+                            iconName="hourglass-half"
                             content={calcTime(runtime)}
                         />
                         <Stars

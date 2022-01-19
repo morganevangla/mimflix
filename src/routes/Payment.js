@@ -31,65 +31,44 @@ const onCancel = data => {
     console.log('payement annulé ', data)
 }
 
-const onSuccess = (payment) => {
-    console.log('payement réussi');
-    // const user = firebase.auth().currentUser;
-
-const auth = getAuth();
-const user = auth.currentUser;
-
-    const dbRef = firebase.database().ref(`users/${user.uid}`);
-    console.log(dbRef)
-    const now = new Date();
-    const newDate = now.setDate(now.getDate() + 30);
-    console.log('newDate : ', newDate);
-    dbRef.set({ validUntil:  newDate})
-         .then(() => {
-            let navigate = useNavigate();
-             console.log('opération réussie ')
-            //  this.props.history.push({ pathname: '/' })
-            return navigate('/')
-         })
-         .catch(err => {
-             console.log('error ', err)
-         })
-
-}
-
 const Payment = props => {
     const navigate = useNavigate();
+
+    // create onSuccess inside Payment to can use navigate to home component after success 
     const onSuccess = (payment) => {
         console.log('payement réussi');
-        // const user = firebase.auth().currentUser;
-    
-    const auth = getAuth();
-    const user = auth.currentUser;
-    
+        const userF = firebase.auth().currentUser;
+
+        const auth = getAuth();
+        const user = auth.currentUser;
+
+        console.log('userF :', userF, 'user ', user)
+
         const dbRef = firebase.database().ref(`users/${user.uid}`);
         console.log(dbRef)
         const now = new Date();
         const newDate = now.setDate(now.getDate() + 30);
         console.log('newDate : ', newDate);
-        dbRef.set({ validUntil:  newDate})
-             .then(() => {
-                 console.log('opération réussie ')
+        dbRef.set({ validUntil: newDate })
+            .then(() => {
+                console.log('opération réussie ')
                 //  this.props.history.push({ pathname: '/' })
                 return navigate('/')
-             })
-             .catch(err => {
-                 console.log('error ', err)
-             })
-    
+            })
+            .catch(err => {
+                console.log('error ', err)
+            })
+
     }
     return (
         <Paypal
-        client = {client}
-        env = {env}
-        total = {total}
-        currency = {currency}
-        onError = {onError}
-        onCancel = {onCancel}
-        onSuccess = {onSuccess}
+            client={client}
+            env={env}
+            total={total}
+            currency={currency}
+            onError={onError}
+            onCancel={onCancel}
+            onSuccess={onSuccess}
         />
     )
 }

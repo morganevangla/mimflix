@@ -10,8 +10,10 @@ import { API_KEY, API_URL, IMAGE_BASE_URL, BACKDROP_SIZE } from './config';
 import { initFirebase } from './utils/firebase-config';
 import { Provider } from 'react-redux';
 import store from './store';
+
 // import 'bootstrap/dist/css/bootstrap.css';
 // import 'bootstrap/dist/css/bootstrap.min.css';
+
 class App extends Component {
 
   state = {
@@ -106,37 +108,35 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-      <Router>
-        <div className='App'>
-          <Header badge={this.state.badge} />
-          {!this.state.image ?
-            (
-              <Spinner />
-            ) : (
-              <Routes>
-                <Route exact path='/' element={
-                  <Home
-                    {...this.state}
-                    onSearchClick={this.handleSearch}
-                    onButtonClick={this.loadMore}
-                  />
-                } />
+        <Router>
+          <div className='App'>
+            <Header badge={this.state.badge} />
+            {!this.state.image ?
+              (
+                <Spinner />
+              ) : (
+                <Routes>
+                  <Route exact path='/' element={
+                    <Home
+                      {...this.state}
+                      onSearchClick={this.handleSearch}
+                      onButtonClick={this.loadMore}
+                    />
+                  } />
                   <Route exact path='/player' element={
                     <MoviePlayer
                     />
                   } />
-
-                {/* <Route path='/:id' exact element={<Details />} /> */}
-                <Route path='/player/:id' exact component={GetId} element={<GetId component={'MoviePlayer'} />} />
-                <Route path='/login' exact component={<Login />} element={<Login />} />
-                <Route path='/payment' exact component={<Payment />} element={<Payment />} />
-                <Route path='/:id' exact component={GetId} element={<GetId component={'Details'} />} />
-          <Route path= '*' element= {<NotFound/>}/>
-              </Routes>
-            )
-          }
-        </div>
-      </Router>
+                  <Route path='/player/:id' exact element={<GetId component={'MoviePlayer'} />} />
+                  <Route path='/login' exact element={<Login />} />
+                  <Route path='/payment' exact element={<Payment />} />
+                  <Route path='/:id' exact element={<GetId component={'Details'} />} />
+                  <Route path='*' element={<NotFound />} />
+                </Routes>
+              )
+            }
+          </div>
+        </Router>
       </Provider>
     )
   }
